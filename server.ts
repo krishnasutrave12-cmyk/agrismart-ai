@@ -191,7 +191,7 @@ function weatherCodeToLabel(code: number, lang: string): string {
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = Number(process.env.PORT) || 3000;
   const server = createServer(app);
 
   app.use(express.json({ limit: "30mb" }));
