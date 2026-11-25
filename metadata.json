@@ -1,0 +1,15 @@
+{
+  "name": "Remix Remix: Remix: AgriSmart AI",
+  "description": "Agri SmartAI — Multilingual AI-powered farming assistant for Indian farmers with crop disease detection, pest detection, voice chatbot, weather, soil health, crop recommendation, mandi prices, expense calculator, and government schemes.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation",
+    "microphone"
+  ],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

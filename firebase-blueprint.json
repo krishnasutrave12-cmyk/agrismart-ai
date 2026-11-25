@@ -1,0 +1,97 @@
+{
+  "entities": {
+    "HistoryItem": {
+      "title": "History Item",
+      "description": "A record of a plant, soil, or water scan",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The user ID who owns this record" },
+        "type": { "type": "string", "enum": ["plant", "soil", "water", "weather"], "description": "The type of scan" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "When the scan was performed" },
+        "details": { "type": "object", "description": "The results of the scan" }
+      },
+      "required": ["uid", "type", "timestamp", "details"]
+    },
+    "User": {
+      "title": "User Profile",
+      "description": "Information about the registered farmer",
+      "type": "object",
+      "properties": {
+        "displayName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "photoURL": { "type": "string", "format": "uri" },
+        "role": { "type": "string", "enum": ["farmer", "admin"] },
+        "location": { "type": "string" },
+        "cropsGrown": { "type": "string" },
+        "experience": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["displayName", "email", "role", "createdAt"]
+    },
+    "Post": {
+      "title": "Forum Post",
+      "description": "A question or discussion topic in the community forum",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "authorName": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "likesCount": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "authorName", "title", "description", "category", "createdAt"]
+    },
+    "Comment": {
+      "title": "Post Comment",
+      "description": "A reply to a forum post",
+      "type": "object",
+      "properties": {
+        "postId": { "type": "string" },
+        "uid": { "type": "string" },
+        "authorName": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["postId", "uid", "authorName", "content", "createdAt"]
+    },
+    "Notification": {
+      "title": "User Notification",
+      "description": "A notification for a user",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string" },
+        "isRead": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "title", "message", "isRead", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/history/{historyId}": {
+      "schema": "HistoryItem",
+      "description": "Collection of all scan history across users"
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/posts/{postId}": {
+      "schema": "Post",
+      "description": "Forum posts"
+    },
+    "/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Comments on posts"
+    },
+    "/notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "User notifications"
+    }
+  }
+}
