@@ -639,10 +639,22 @@ Respond ONLY in ${langDesc}.
       }
 
       const forecastUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,precipitation,rain,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max&timezone=auto&forecast_days=7`;
-      const weatherRes = await fetch(forecastUrl);
-      if (!weatherRes.ok) {
-        return res.status(502).json({ error: "Live weather API is currently unavailable." });
-      }
+     const weatherRes = await fetch(forecastUrl);
+
+if (!weatherRes.ok) 
+  {
+  const errorText = await weatherRes.text();
+
+  console.error(
+    "Open-Meteo forecast error:",
+    weatherRes.status,
+    errorText
+  );
+
+  return res.status(502).json({
+    error: "Live weather API is currently unavailable."
+  });
+}
       const wData = await weatherRes.json();
 
       const current = {
